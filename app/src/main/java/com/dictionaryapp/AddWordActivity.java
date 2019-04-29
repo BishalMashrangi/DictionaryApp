@@ -1,5 +1,6 @@
 package com.dictionaryapp;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+
+import helper.MyHelper;
 
 public class AddWordActivity extends AppCompatActivity {
     EditText etWord, etMeaning;
@@ -25,10 +28,23 @@ public class AddWordActivity extends AppCompatActivity {
         etMeaning=findViewById(R.id.etMeaning);
         btnAddWord= findViewById(R.id.btnAddWord);
 
+
+
         btnAddWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Save();
+                final MyHelper myHelper = new MyHelper(AddWordActivity.this);
+                final SQLiteDatabase sqLiteDatabase = myHelper.getWritableDatabase();
+
+                if(myHelper.InsertData(etWord.getText().toString(),etMeaning.getText().toString(),sqLiteDatabase))
+                {
+                    Toast.makeText(AddWordActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                } else
+                {
+                    Toast.makeText(AddWordActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

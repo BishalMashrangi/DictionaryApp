@@ -1,6 +1,7 @@
 package com.dictionaryapp;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +19,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import helper.MyHelper;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnOpen;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         lstDictionary = findViewById(R.id.lstDictionary);
         dictionary = new HashMap<>();
         readFromFile();
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         lstDictionary.setAdapter(adapter);
         btnOpen= findViewById(R.id.btnOpen);
+
 
         lstDictionary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
